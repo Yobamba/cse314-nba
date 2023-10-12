@@ -1,0 +1,26 @@
+[
+  {
+    "_id": {
+      "$oid": "651d3c3ad64e58bddf56eab7"
+    },
+    "firstName": "Steph",
+    "lastName": "Curry",
+    "jerseyNumber": "30",
+    "position": "PG",
+    "age": "35",
+    "height": "193",
+    "team": "GSW"
+  },
+  {
+    "_id": {
+      "$oid": "651d3c3ad64e58bddf56eab8"
+    },
+    "firstName": "Kyrie",
+    "lastName": "Irving",
+    "jerseyNumber": "11",
+    "position": "PG",
+    "age": "31",
+    "height": "191",
+    "team": "Dallas Maverikcs"
+  }
+]
