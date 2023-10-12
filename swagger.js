@@ -5,7 +5,7 @@ const doc = {
     title: "Players API",
     description: "API that handles a database of players",
   },
-  host: "localhost:3000",
+  host: "nba-sa92.onrender.com",
   schemes: ["http", "https"],
 };
 
