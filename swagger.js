@@ -6,7 +6,7 @@ const doc = {
     description: "API that handles a database of players",
   },
   host: "nba-sa92.onrender.com",
-  schemes: ["http", "https"],
+  schemes: ["https"],
 };
 
 const outputFile = "./swagger-output.json";
