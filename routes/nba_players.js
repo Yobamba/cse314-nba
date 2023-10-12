@@ -11,7 +11,7 @@ const playersController = require("../controllers/nba_players.js");
 router.get("/", playersController.getAll, () => {
   /**
    * #swagger.tags = ["NBA Players"]
-   * #swagger.summary = "Get all of the players in the satabase"
+   * #swagger.summary = "Get all of the players in the database"
    * #swagger.description = "Endpoint to get all of the players in the database"
    */
 });
