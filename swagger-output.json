@@ -5,10 +5,9 @@
     "description": "API that handles a database of players",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "nba-sa92.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
@@ -17,7 +16,7 @@
         "tags": [
           "NBA Players"
         ],
-        "summary": "Get all of the players in the satabase",
+        "summary": "Get all of the players in the database",
         "description": "Endpoint to get all of the players in the database",
         "produces": [
           "application/json"
