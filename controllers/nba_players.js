@@ -63,6 +63,9 @@ const createPlayer = async (req, res) => {
 };
 
 const modifyPlayer = async (req, res, next) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to find a player.");
+  }
   const player = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
