@@ -19,6 +19,7 @@ router.get("/", playersController.getAll, () => {
 
 router.get("/:id", playersController.getSingle, () => {
   /**
+   * #swagger.tags = ["NBA Players"]
    * #swagger.summary = "Get a single player from the database"
    * #swagger.description = "Endpoint to get a single contact from the database"
    */
@@ -30,6 +31,7 @@ router.post(
   playersController.createPlayer,
   () => {
     /**
+     * #swagger.tags = ["NBA Players"]
      * #swagger.summary = "Create a new player"
      * #swagger.description = "Endpoint to create a new player"
      * #swagger.parameter['obj'] => {
@@ -46,6 +48,7 @@ router.put(
   playersController.modifyPlayer,
   () => {
     /**
+     * #swagger.tags = ["NBA Players"]
      * #swagger.summary = "Modify a player"
      * #swagger.description = "Endpoint to get a single player from the database and modify it"
      */
@@ -54,6 +57,7 @@ router.put(
 
 router.delete("/:id", playersController.deletePlayer, () => {
   /**
+   * #swagger.tags = ["NBA Players"]
    * #swagger.summary = "Delete a player from the database"
    * #swagger.description = "Endpoint to delete a player from the database"
    */
