@@ -3,7 +3,7 @@ const mongodb = require("./db/connect");
 const express = require("express");
 const swaggerDocument = require("./swagger-output.json");
 const swaggerUi = require("swagger-ui-express");
-
+const cors = require("cors");
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -17,6 +17,7 @@ app
   })
   .use("/", require("./routes"));
 
+app.use(cors);
 // an event listener for uncaught exceptions
 process.on("uncaughtException", (err, origin) => {
   console.log(

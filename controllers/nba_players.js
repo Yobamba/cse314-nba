@@ -15,6 +15,9 @@ const getAll = async (req, res, next) => {
 };
 
 const getSingle = async (req, res, next) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to find a player.");
+  }
   try {
     const userId = new ObjectId(req.params.id);
     const result = await mongodb
@@ -85,6 +88,9 @@ const modifyPlayer = async (req, res, next) => {
 };
 
 const deletePlayer = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to delete a player.");
+  }
   const userId = new ObjectId(req.params.id);
   const response = await mongodb
     .getDb()
