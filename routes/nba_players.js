@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
+const validation = require("../validation");
 
 const port = process.env.PORT || 8080;
 
@@ -23,23 +24,33 @@ router.get("/:id", playersController.getSingle, () => {
    */
 });
 
-router.post("/", playersController.createPlayer, () => {
-  /**
-   * #swagger.summary = "Create a new player"
-   * #swagger.description = "Endpoint to create a new player"
-   * #swagger.parameter['obj'] => {
-   * in: 'body',
-   * type: 'object',
-   * description: 'Player data'}
-   */
-});
+router.post(
+  "/",
+  validation.saveCreatedPlayer,
+  playersController.createPlayer,
+  () => {
+    /**
+     * #swagger.summary = "Create a new player"
+     * #swagger.description = "Endpoint to create a new player"
+     * #swagger.parameter['obj'] => {
+     * in: 'body',
+     * type: 'object',
+     * description: 'Player data'}
+     */
+  }
+);
 
-router.put("/:id", playersController.modifyPlayer, () => {
-  /**
-   * #swagger.summary = "Modify a player"
-   * #swagger.description = "Endpoint to get a single player from the database and modify it"
-   */
-});
+router.put(
+  "/:id",
+  validation.saveModifiedPlayer,
+  playersController.modifyPlayer,
+  () => {
+    /**
+     * #swagger.summary = "Modify a player"
+     * #swagger.description = "Endpoint to get a single player from the database and modify it"
+     */
+  }
+);
 
 router.delete("/:id", playersController.deletePlayer, () => {
   /**
