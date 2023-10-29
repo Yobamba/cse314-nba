@@ -63,13 +63,13 @@ router.post("/", (req, res) => {
    */
 });
 
-newUser.save(function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("work here");
-  }
-});
+// newUser.save(function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("work here");
+//   }
+// });
 
 router.put(
   "/:id",
