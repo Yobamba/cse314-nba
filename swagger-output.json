@@ -5,7 +5,7 @@
     "description": "API that handles a database of players",
     "version": "1.0.0"
   },
-  "host": "nba-sa92.onrender.com/",
+  "host": "nba-sa92.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
