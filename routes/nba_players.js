@@ -13,9 +13,6 @@ const playersController = require("../controllers/nba_players.js");
 //   res.sendFile(path.join(__dirname, "build", "views/register.html"));
 // });
 
-router.get("/", (req, res) => {
-  res.send("Register");
-});
 router.get("/", playersController.getAll, () => {
   /**
    * #swagger.tags = ["NBA Players"]
