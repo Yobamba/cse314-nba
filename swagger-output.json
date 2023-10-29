@@ -5,22 +5,16 @@
     "description": "API that handles a database of players",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "nba-sa92.onrender.com/",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/nba_players/": {
       "get": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Get all of the players in the database",
         "description": "Endpoint to get all of the players in the database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -82,9 +76,7 @@
       "get": {
         "summary": "Get a single player from the database",
         "description": "Endpoint to get a single contact from the database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
