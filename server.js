@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const bodyParser = require("body-parser");
 const mongodb = require("./db/connect");
 const express = require("express");
@@ -5,7 +7,17 @@ const swaggerDocument = require("./swagger-output.json");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
 const port = process.env.PORT || 8080;
+const mongoose = require("mongoose");
 const app = express();
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
+const userSchema = {
+  email: String,
+  password: String,
+};
+
+const User = new mongoose.model("User", userSchema);
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
