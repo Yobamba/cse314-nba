@@ -46,6 +46,31 @@ router.post(
   }
 );
 
+router.post("/", (req, res) => {
+  const newUser = new User({
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  /**
+   * #swagger.tags = ["NBA Players"]
+   * #swagger.summary = "Create a new user"
+   * #swagger.description = "Endpoint to create a new user"
+   * #swagger.parameter['obj'] => {
+   * in: 'body',
+   * type: 'object',
+   * description: 'Player data'}
+   */
+});
+
+newUser.save(function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("work here");
+  }
+});
+
 router.put(
   "/:id",
   validation.saveModifiedPlayer,
