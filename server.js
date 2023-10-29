@@ -7,7 +7,7 @@ const cors = require("cors");
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app
   .use(bodyParser.json())
