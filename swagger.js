@@ -5,8 +5,10 @@ const doc = {
     title: "Players API",
     description: "API that handles a database of players",
   },
-  host: "nba-sa92.onrender.com",
-  schemes: ["https"],
+  host: "localhost:3000",
+  schemes: ["http"],
+  // host: "nba-sa92.onrender.com",
+  // schemes: ["https"],
 };
 
 const outputFile = "./swagger-output.json";

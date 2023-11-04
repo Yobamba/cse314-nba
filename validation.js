@@ -30,6 +30,25 @@ const saveCreatedPlayer = async (req, res, next) => {
   }).catch((err) => console.log(err));
 };
 
+const saveCreatedUser = async (req, res, next) => {
+  const validationRule = {
+    email: "required|string",
+    password: "required|string",
+  };
+
+  await validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      res.status(412).send({
+        success: false,
+        message: "Validation failed",
+        data: err,
+      });
+    } else {
+      next();
+    }
+  }).catch((err) => console.log(err));
+};
+
 const saveModifiedPlayer = async (req, res, next) => {
   const validationRule = {
     firstName: "required|string",
@@ -57,6 +76,7 @@ const saveModifiedPlayer = async (req, res, next) => {
 module.exports = {
   validator,
   saveCreatedPlayer,
+  saveCreatedUser,
   saveModifiedPlayer,
 };
 

@@ -62,6 +62,25 @@ const createPlayer = async (req, res) => {
   }
 };
 
+const createUser = async (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+  const response = await mongodb
+    .getDb()
+    .db()
+    .collection("users")
+    .insertOne(user);
+  if (response.acknowledged) {
+    res.status(201).json(response);
+  } else {
+    res
+      .status(500)
+      .json(response.error || "Some error occurred while creating the user.");
+  }
+};
+
 const modifyPlayer = async (req, res, next) => {
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).json("Must use a valid contact id to find a player.");
@@ -114,6 +133,7 @@ module.exports = {
   getAll,
   getSingle,
   createPlayer,
+  createUser,
   modifyPlayer,
   deletePlayer,
 };

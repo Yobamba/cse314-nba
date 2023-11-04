@@ -7,17 +7,12 @@ const swaggerDocument = require("./swagger-output.json");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
 const port = process.env.PORT || 8080;
-const mongoose = require("mongoose");
+const session = require("session");
+const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport");
+const findOrCreate = require("mongoose-findorcreate");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const app = express();
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-
-const userSchema = {
-  email: String,
-  password: String,
-};
-
-const User = new mongoose.model("User", userSchema);
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -28,6 +23,25 @@ app
     next();
   })
   .use("/", require("./routes"));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/nba",
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);
 
 app.use(cors);
 // an event listener for uncaught exceptions
