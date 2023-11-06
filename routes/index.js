@@ -4,6 +4,7 @@ const swaggerDocument = require("../swagger-output.json");
 const swaggerUi = require("swagger-ui-express");
 
 routes.use("/nba_players", require("./nba_players"));
+routes.use("/start_page", require("./start_page"));
 
 routes.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -7,14 +7,35 @@ const swaggerDocument = require("./swagger-output.json");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
 const port = process.env.PORT || 8080;
-const session = require("session");
+const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
 const passport = require("passport");
 const findOrCreate = require("mongoose-findorcreate");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const app = express();
+const mongoose = require("mongoose");
+const User = require("./User.js");
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+});
+
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+// const User = new mongoose.model("User", userSchema);
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use(
+  session({
+    secret: "Little secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app
   .use(bodyParser.json())
@@ -30,8 +51,8 @@ app.use(passport.session());
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "http://localhost:3000/auth/google/nba",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
@@ -63,4 +84,9 @@ mongodb.initDb((err, mongodb) => {
 
 app.listen(3000, () => {
   console.log("listening on port 3000 for api documentation");
+});
+
+app.get("/register", (req, res) => {
+  res.send("<h1>Register Page 2</h1>");
+  res.sendFile(path.join("../public/register.html"));
 });

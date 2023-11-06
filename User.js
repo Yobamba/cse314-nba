@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+const findOrCreate = require("mongoose-findorcreate");
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
   email: String,
   password: String,
-};
+});
 
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 const User = new mongoose.model("User", userSchema);
 
 module.exports = { User };

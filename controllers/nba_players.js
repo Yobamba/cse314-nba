@@ -1,3 +1,4 @@
+const path = require("path");
 const { response } = require("express");
 const mongodb = require("../db/connect");
 const ObjectId = require("mongodb").ObjectId;
@@ -73,11 +74,54 @@ const createUser = async (req, res) => {
     .collection("users")
     .insertOne(user);
   if (response.acknowledged) {
-    res.status(201).json(response);
+    res.redirect("http://localhost:3000/start_page/login");
   } else {
     res
       .status(500)
       .json(response.error || "Some error occurred while creating the user.");
+    console.log("Erro!");
+  }
+};
+
+const getUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Find the user by email
+    const user = await mongodb
+      .getDb()
+      .db()
+      .collection("users")
+      .findOne({ email });
+
+    if (!user) {
+      // User not found
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Compare the provided password with the hashed password in the database
+    // const passwordMatch = await bcrypt.compare(password, user.password);
+    // const passwordMatch = await compare(password, user.password);
+
+    if (password == user.password) {
+      // Passwords match - You can create a session or issue a JWT token for authentication here
+      // For session-based authentication, you might use a library like express-session
+      // For token-based authentication, you might use a library like jsonwebtoken (JWT)
+
+      // Example using JWT:
+      // const jwtToken = generateJwtToken(user);
+      console.log("the password is a match. ");
+      res.redirect("http://localhost:3000/doc");
+
+      // Return the JWT token to the client
+      // return res.status(200).json({ token: jwtToken });
+    } else {
+      // Passwords don't match
+      console.log("Passwords don't match");
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "An error occurred" });
   }
 };
 
@@ -134,6 +178,7 @@ module.exports = {
   getSingle,
   createPlayer,
   createUser,
+  getUser,
   modifyPlayer,
   deletePlayer,
 };
