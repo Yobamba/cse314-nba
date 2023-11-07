@@ -69,7 +69,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "https://nba-sa92.onrender.com/auth/google/nba",
+      callbackURL: "http://localhost:3000/auth/google/nba",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -89,10 +89,10 @@ app.get("/auth/google", (req, res) => {
 app.get(
   "/auth/google/nba",
   passport.authenticate("google", {
-    failureRedirect: "https://nba-sa92.onrender.com/start_page/login",
+    failureRedirect: "http://localhost:3000/start_page/login",
   }),
   function (req, res) {
-    res.redirect("https://nba-sa92.onrender.com/doc");
+    res.redirect("http://localhost:3000/doc");
     console.log("in the auth doc");
   }
 );

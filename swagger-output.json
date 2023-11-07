@@ -5,22 +5,16 @@
     "description": "API that handles a database of players",
     "version": "1.0.0"
   },
-  "host": "nba-sa92.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/nba_players/": {
       "get": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Get all of the players in the database",
         "description": "Endpoint to get all of the players in the database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -34,9 +28,7 @@
         }
       },
       "post": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Create a new player",
         "description": "Endpoint to create a new player",
         "parameters": [
@@ -86,14 +78,10 @@
     },
     "/nba_players/{id}": {
       "get": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Get a single player from the database",
         "description": "Endpoint to get a single contact from the database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -112,9 +100,7 @@
         }
       },
       "put": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Modify a player",
         "description": "Endpoint to get a single player from the database and modify it",
         "parameters": [
@@ -171,9 +157,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Delete a player from the database",
         "description": "Endpoint to delete a player from the database",
         "parameters": [
@@ -199,9 +183,7 @@
     },
     "/nba_players/user": {
       "post": {
-        "tags": [
-          "NBA Players"
-        ],
+        "tags": ["NBA Players"],
         "summary": "Create a new user",
         "description": "Endpoint to create a new user",
         "parameters": [
