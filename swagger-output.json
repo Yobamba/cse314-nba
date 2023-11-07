@@ -5,10 +5,10 @@
     "description": "API that handles a database of players",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://nba-sa92.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/nba_players/": {
