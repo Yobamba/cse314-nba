@@ -2,7 +2,7 @@ const path = require("path");
 const { response } = require("express");
 const mongodb = require("../db/connect");
 const ObjectId = require("mongodb").ObjectId;
-const passport = require("passport");
+const passport = require("..server.js");
 const cors = require("cors");
 const user = require("../User.js");
 
