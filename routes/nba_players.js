@@ -4,7 +4,7 @@ const router = express.Router();
 const validation = require("../validation");
 const port = process.env.PORT || 8080;
 const User = require("../User");
-
+const temporary = require("../server.js");
 router.use(bodyParser.json());
 
 const playersController = require("../controllers/nba_players.js");
@@ -19,6 +19,7 @@ router.get("/", playersController.getAll, () => {
    * #swagger.summary = "Get all of the players in the database"
    * #swagger.description = "Endpoint to get all of the players in the database"
    */
+  console.log("req: ", req);
 });
 
 router.get("/:id", playersController.getSingle, () => {

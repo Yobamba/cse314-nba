@@ -15,6 +15,8 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./User.js");
+const controller = require("./controllers/nba_players.js");
+const ObjectId = require("mongodb").ObjectId;
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
@@ -48,6 +50,20 @@ app
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Serialize the user to store in the session
+passport.serializeUser((User, done) => {
+  console.log("Serialize user: ", User);
+  done(null, User.id); // Assuming you have an "id" field in your User model
+});
+
+// Deserialize the user from the session
+passport.deserializeUser((id, done) => {
+  console.log("Deserialize user: ", id);
+  User.findById(id, (err, User) => {
+    done(err, User);
+  });
+});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -58,10 +74,27 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        console.log("profile: ", profile);
         return cb(err, user);
       });
     }
   )
+);
+
+app.get("/auth/google", (req, res) => {
+  console.log("in the auth code");
+  passport.authenticate("google", { scope: ["profile"] })(req, res);
+});
+
+app.get(
+  "/auth/google/nba",
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000/start_page/login",
+  }),
+  function (req, res) {
+    res.redirect("http://localhost:3000/doc");
+    console.log("in the auth doc");
+  }
 );
 
 app.use(cors);
@@ -86,7 +119,4 @@ app.listen(3000, () => {
   console.log("listening on port 3000 for api documentation");
 });
 
-app.get("/register", (req, res) => {
-  res.send("<h1>Register Page 2</h1>");
-  res.sendFile(path.join("../public/register.html"));
-});
+module.exports = { passport };

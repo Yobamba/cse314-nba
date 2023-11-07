@@ -1,0 +1,123 @@
+[{
+  "_id": {
+    "$oid": "6543d3fb0cb337bfa7ddace4"
+  },
+  "email": "numberUNO",
+  "password": "123please"
+},
+{
+  "_id": {
+    "$oid": "6548e80bbc87d0254d1d9735"
+  },
+  "email": "santiago@gmail.com",
+  "password": "sa"
+},
+{
+  "_id": {
+    "$oid": "6548ea6aa0efcf23b76a4634"
+  },
+  "email": "delgado@chimoio.com",
+  "password": "11"
+},
+{
+  "_id": {
+    "$oid": "6548ebef1d4cb0a62013d9b4"
+  },
+  "email": "sj@w.com",
+  "password": "skldjf"
+},
+{
+  "_id": {
+    "$oid": "6548ecb15797fd8cdaba30e0"
+  },
+  "email": "123967@gmail.com",
+  "password": "7"
+},
+{
+  "_id": {
+    "$oid": "6548f2177aa3c1e6a3dae643"
+  },
+  "email": "suit@mike.com",
+  "password": "kljl"
+},
+{
+  "_id": {
+    "$oid": "6548f2d83cfbf3c4785a7009"
+  },
+  "email": "veinte@uno.com",
+  "password": "2121"
+},
+{
+  "_id": {
+    "$oid": "6548f2f43cfbf3c4785a700a"
+  },
+  "email": "veinte@uno.com",
+  "password": "2121"
+},
+{
+  "_id": {
+    "$oid": "6548f2f73cfbf3c4785a700b"
+  },
+  "email": "veinte@uno.com",
+  "password": "2121"
+},
+{
+  "_id": {
+    "$oid": "6548f2fe3cfbf3c4785a700c"
+  },
+  "email": "veinte@uno.com",
+  "password": "2121"
+},
+{
+  "_id": {
+    "$oid": "65490c109a47456f5f6fa896"
+  },
+  "email": "logan@xmen.com",
+  "password": "1234"
+},
+{
+  "_id": {
+    "$oid": "65491a1f8c0959812f44eb33"
+  },
+  "email": "ben@10.com",
+  "password": "10"
+},
+{
+  "_id": {
+    "$oid": "65491a9a4ae429dd7d209a3d"
+  },
+  "email": "kevin@11.com",
+  "password": "11"
+},
+{
+  "_id": {
+    "$oid": "65493fc0275f9c0994cd504e"
+  },
+  "email": "xafambalexi@gmail.com",
+  "password": "Xafambalexi@123.com"
+},
+{
+  "_id": {
+    "$oid": "65497809e3e45a9288e3d0f2"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6549787b3422ac2b9ba1fade"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65497c2780ac9007df59ab03"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65497d4e1bed01a58f506962"
+  },
+  "email": "try@out.com",
+  "password": "1234"
+}]
