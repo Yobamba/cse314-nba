@@ -4,7 +4,6 @@ const router = express.Router();
 const validation = require("../validation");
 const port = process.env.PORT || 8080;
 const User = require("../User");
-const temporary = require("../server.js");
 router.use(bodyParser.json());
 
 const playersController = require("../controllers/nba_players.js");
@@ -13,16 +12,30 @@ const playersController = require("../controllers/nba_players.js");
 //   res.sendFile(path.join(__dirname, "build", "views/register.html"));
 // });
 
-router.get("/", playersController.getAll, () => {
+// Define the ensureAuthenticated middleware
+const ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    console.log("you're authenticated now!");
+    return next(); // User is authenticated, proceed to the next middleware
+  }
+
+  res
+    .status(401)
+    .json({
+      message:
+        "Authentication required. In the browser url remove doc and replace it with start_page/register",
+    });
+};
+
+router.get("/", ensureAuthenticated, playersController.getAll, () => {
   /**
    * #swagger.tags = ["NBA Players"]
    * #swagger.summary = "Get all of the players in the database"
    * #swagger.description = "Endpoint to get all of the players in the database"
    */
-  console.log("req: ", req);
 });
 
-router.get("/:id", playersController.getSingle, () => {
+router.get("/:id", ensureAuthenticated, playersController.getSingle, () => {
   /**
    * #swagger.tags = ["NBA Players"]
    * #swagger.summary = "Get a single player from the database"
@@ -32,6 +45,7 @@ router.get("/:id", playersController.getSingle, () => {
 
 router.post(
   "/",
+  ensureAuthenticated,
   validation.saveCreatedPlayer,
   playersController.createPlayer,
   () => {
@@ -49,6 +63,7 @@ router.post(
 
 router.post(
   "/user",
+  ensureAuthenticated,
   validation.saveCreatedUser,
   playersController.createUser,
   () => {
@@ -66,6 +81,7 @@ router.post(
 
 router.put(
   "/:id",
+  ensureAuthenticated,
   validation.saveModifiedPlayer,
   playersController.modifyPlayer,
   () => {
@@ -77,12 +93,17 @@ router.put(
   }
 );
 
-router.delete("/:id", playersController.deletePlayer, () => {
-  /**
-   * #swagger.tags = ["NBA Players"]
-   * #swagger.summary = "Delete a player from the database"
-   * #swagger.description = "Endpoint to delete a player from the database"
-   */
-});
+router.delete(
+  "/:id",
+  ensureAuthenticated,
+  playersController.deletePlayer,
+  () => {
+    /**
+     * #swagger.tags = ["NBA Players"]
+     * #swagger.summary = "Delete a player from the database"
+     * #swagger.description = "Endpoint to delete a player from the database"
+     */
+  }
+);
 
 module.exports = router;

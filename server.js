@@ -15,8 +15,10 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./User.js");
-const controller = require("./controllers/nba_players.js");
 const ObjectId = require("mongodb").ObjectId;
+const playersController = require("./controllers/nba_players.js");
+const router1 = express.Router();
+router1.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
@@ -39,13 +41,21 @@ app.use(
   })
 );
 
-app
-  .use(bodyParser.json())
-  .use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    next();
-  })
-  .use("/", require("./routes"));
+// // Define the ensureAuthenticated middleware
+// const ensureAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     console.log("you're authenticated now!");
+//     return next(); // User is authenticated, proceed to the next middleware
+//   }
+//   res.status(401).json({ message: "Authentication required" });
+// };
+
+// router1.get("/", ensureAuthenticated, playersController.getAll, () => {
+//   /**
+//    * #swagger.summary = "Get all of the players in the database"
+//    * #swagger.description = "Endpoint to get all of the players in the database"
+//    */
+// });
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -59,17 +69,20 @@ passport.serializeUser((User, done) => {
 // Deserialize the user from the session
 passport.deserializeUser((id, done) => {
   console.log("Deserialize user: ", id);
-  User.findById(id, (err, User) => {
-    done(err, User);
-  });
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((err) => {
+      done(err, null);
+    });
 });
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/nba",
+      callbackURL: "https://nba-sa92.onrender.com/auth/google/nba",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -89,13 +102,22 @@ app.get("/auth/google", (req, res) => {
 app.get(
   "/auth/google/nba",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/start_page/login",
+    failureRedirect: "https://nba-sa92.onrender.com/start_page/login",
   }),
   function (req, res) {
-    res.redirect("http://localhost:3000/doc");
+    res.redirect("https://nba-sa92.onrender.com/doc");
     console.log("in the auth doc");
   }
 );
+
+app
+  .use(bodyParser.json())
+  .use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();
+  })
+  .use("/", require("./routes"))
+  .use(router1);
 
 app.use(cors);
 // an event listener for uncaught exceptions

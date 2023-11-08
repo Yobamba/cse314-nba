@@ -1,6 +1,5 @@
 # GET the  doc
-GET http://localhost:3000/doc
-
+GET http://localhost:3000/doc/
 # Get the doc
 Get https://nba-sa92.onrender.com/
 

@@ -2,53 +2,26 @@ const path = require("path");
 const { response } = require("express");
 const mongodb = require("../db/connect");
 const ObjectId = require("mongodb").ObjectId;
-const passport = require("../server.js");
+// const passport = require("../server.js");
+const passport = require("passport");
 const cors = require("cors");
-const user = require("../User.js");
-
-// const getAll = async (req, res, next) => {
-//   console.log("req: ", req.user);
-//   // if (req.isAuthenticated()) {
-//   try {
-//     const result = await mongodb.getDb().db().collection("nba_players").find();
-//     result.toArray().then((lists) => {
-//       res.setHeader("Content-Type", "application/json");
-//       res.status(200).json(lists);
-//     });
-//   } catch (err) {
-//     res.status(400).json({ message: err });
-//   }
-//   // } else {
-//   //   console.log("Please log in. ");
-//   // }
-// };
 
 const getAll = async (req, res, next) => {
-  passport.authenticate("google", async (err, user) => {
-    if (err) {
-      console.log(err);
-      return next(err); // Handle error
-    }
-    if (!user) {
-      console.log("user: ", user);
-      return res.status(401).json({ message: "Authentication failed" });
-    }
+  console.log("req: ", req.user);
 
-    // User is authenticated, proceed with the route logic
-    try {
-      const result = await mongodb
-        .getDb()
-        .db()
-        .collection("nba_players")
-        .find();
-      result.toArray().then((lists) => {
-        res.setHeader("Content-Type", "application/json");
-        res.status(200).json(lists);
-      });
-    } catch (err) {
-      res.status(400).json({ message: err });
-    }
-  })(req, res, next);
+  // if (req.isAuthenticated()) {
+  try {
+    const result = await mongodb.getDb().db().collection("nba_players").find();
+    result.toArray().then((lists) => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).json(lists);
+    });
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+  // } else {
+  //   console.log("Please log in. ");
+  // }
 };
 
 // const getAll = async (req, res, next) => {
@@ -138,7 +111,7 @@ const createUser = async (req, res) => {
     .collection("users")
     .insertOne(user);
   if (response.acknowledged) {
-    res.redirect("http://localhost:3000/start_page/login");
+    res.redirect("https://nba-sa92.onrender.com/start_page/login");
   } else {
     res
       .status(500)
@@ -174,7 +147,7 @@ const getUser = async (req, res) => {
       // Example using JWT:
       // const jwtToken = generateJwtToken(user);
       console.log("the password is a match. ");
-      res.redirect("http://localhost:3000/doc");
+      res.redirect("https://nba-sa92.onrender.com/doc");
 
       // Return the JWT token to the client
       // return res.status(200).json({ token: jwtToken });
@@ -237,6 +210,16 @@ const deletePlayer = async (req, res) => {
   }
 };
 
+// // Define the ensureAuthenticated middleware
+// const ensureAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     return next(); // User is authenticated, proceed to the next middleware
+//   }
+//   res.status(401).json({ message: "Authentication required" });
+// };
+
+// Now, you can export ensureAuthenticated
+
 module.exports = {
   getAll,
   getSingle,
@@ -245,4 +228,5 @@ module.exports = {
   getUser,
   modifyPlayer,
   deletePlayer,
+  // ensureAuthenticated,
 };
