@@ -41,22 +41,6 @@ app.use(
   })
 );
 
-// // Define the ensureAuthenticated middleware
-// const ensureAuthenticated = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     console.log("you're authenticated now!");
-//     return next(); // User is authenticated, proceed to the next middleware
-//   }
-//   res.status(401).json({ message: "Authentication required" });
-// };
-
-// router1.get("/", ensureAuthenticated, playersController.getAll, () => {
-//   /**
-//    * #swagger.summary = "Get all of the players in the database"
-//    * #swagger.description = "Endpoint to get all of the players in the database"
-//    */
-// });
-
 app.use(passport.initialize());
 app.use(passport.session());
 

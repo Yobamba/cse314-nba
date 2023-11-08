@@ -210,16 +210,6 @@ const deletePlayer = async (req, res) => {
   }
 };
 
-// // Define the ensureAuthenticated middleware
-// const ensureAuthenticated = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     return next(); // User is authenticated, proceed to the next middleware
-//   }
-//   res.status(401).json({ message: "Authentication required" });
-// };
-
-// Now, you can export ensureAuthenticated
-
 module.exports = {
   getAll,
   getSingle,
@@ -228,5 +218,4 @@ module.exports = {
   getUser,
   modifyPlayer,
   deletePlayer,
-  // ensureAuthenticated,
 };

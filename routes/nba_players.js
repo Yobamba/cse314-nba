@@ -8,10 +8,6 @@ router.use(bodyParser.json());
 
 const playersController = require("../controllers/nba_players.js");
 
-// router.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build", "views/register.html"));
-// });
-
 // Define the ensureAuthenticated middleware
 const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -19,12 +15,10 @@ const ensureAuthenticated = (req, res, next) => {
     return next(); // User is authenticated, proceed to the next middleware
   }
 
-  res
-    .status(401)
-    .json({
-      message:
-        "Authentication required. In the browser url remove doc and replace it with start_page/register",
-    });
+  res.status(401).json({
+    message:
+      "Authentication required. In the browser url remove doc and replace it with start_page/register",
+  });
 };
 
 router.get("/", ensureAuthenticated, playersController.getAll, () => {
