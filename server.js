@@ -19,6 +19,13 @@ const ObjectId = require("mongodb").ObjectId;
 const playersController = require("./controllers/nba_players.js");
 const router1 = express.Router();
 router1.use(bodyParser.json());
+const testRouter = express.Router();
+
+testRouter.get("/", (req, res) => {
+  console.log("testing");
+  res.send("test sent");
+  // res.sendFile("login.html", { root: path.join(__dirname, "../public") });
+});
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
