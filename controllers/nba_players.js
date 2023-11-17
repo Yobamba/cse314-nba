@@ -19,38 +19,7 @@ const getAll = async (req, res, next) => {
   } catch (err) {
     res.status(400).json({ message: err });
   }
-  // } else {
-  //   console.log("Please log in. ");
-  // }
 };
-
-// const getAll = async (req, res, next) => {
-//   passport.authenticate("google", async (err, user, info) => {
-//     if (err) {
-//       console.log(err);
-//       return next(err); // Handle error
-//     }
-//     if (!user) {
-//       console.log("user: ", user);
-//       return res.status(401).json({ message: "Authentication failed" });
-//     }
-
-//     // User is authenticated, proceed with the route logic
-//     try {
-//       const result = await mongodb
-//         .getDb()
-//         .db()
-//         .collection("nba_players")
-//         .find();
-//       result.toArray().then((lists) => {
-//         res.setHeader("Content-Type", "application/json");
-//         res.status(200).json(lists);
-//       });
-//     } catch (err) {
-//       res.status(400).json({ message: err });
-//     }
-//   })(req, res, next);
-// };
 
 const getSingle = async (req, res, next) => {
   if (!ObjectId.isValid(req.params.id)) {
